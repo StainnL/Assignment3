@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: plum;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board {
+    height: 85vh;
+    width: 80vw;
+    background-image: linear-gradient(to right, #59286d, #da90ff);
+    border-radius: 14px;
+    outline: 2px solid white;
+}
+
+.ball {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    position: fixed;
+    top: calc(50% - 15px);
+    left: calc(50% - 15px);
+}
+
+.ball_effect {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border-radius: 100px;
+    animation: spinBall 0.1s linear infinite;
+    box-shadow: inset 0 0 18px #fff,
+        inset 6px 0 18px #800080,
+        inset -6px 0 18px #800080,
+        inset 6px 0 30px #800080,
+        inset -6px 0 30px #800080,
+        0 0 18px #800080, -4px 0 18px #800080, 4px 0 18px #800080;
+    transition: transform 0.2s ease-out;
+}
+
+.ball_effect.hit {
+    transform: scale(1.2);
+}
+
+.ball_effect::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    background: #800080;
+    /* match the color of the ball */
+    animation: trail 0.5s linear infinite;
+    z-index: -1;
+    /* place the trail behind the ball */
+
+}
+
+.ball_effect::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    /* adjust to control the length of the tail */
+    height: 100%;
+    border-radius: 50%;
+    background: #800080;
+    /* match the color of the ball */
+    animation: tail 0.5s linear infinite;
+    z-index: -1;
+    /* place the tail behind the ball */
+    transform: translate(-50%, -50%);
+    /* center the tail on the ball */
+}
+
+@keyframes tail {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}
+
+@keyframes trail {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes spinBall {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.paddle {
+    height: 100px;
+    width: 18px;
+    border-radius: 50%;
+    position: fixed;
+    animation: paddleTrail 0.5s infinite;
+}
+
+
+
+.paddle_1 {
+    top: calc(7.5vh + 55px);
+    left: calc(10vw + 30px);
+    box-shadow: inset 0 0 18px #fff,
+        inset -6px 0 18px #800080,
+        inset 6px 0 18px #800080,
+        inset -6px 0 30px #800080,
+        inset 6px 0 30px #800080,
+        0 0 18px #800080, 4px 0 18px #800080, -4px 0 18px #800080;
+    border-radius: 0%;
+    background-color: purple;
+}
+
+.paddle_2 {
+    top: calc(85vh + 7.5vh - 100px - 55px);
+    right: calc(10vw + 30px);
+    box-shadow: inset 0 0 18px #fff,
+        inset -6px 0 18px #800080,
+        inset 6px 0 18px #800080,
+        inset -6px 0 30px #800080,
+        inset 6px 0 30px #800080,
+        0 0 18px #800080, 4px 0 18px #800080, -4px 0 18px #800080;
+    border-radius: 0%;
+    background-color: purple;
+}
+
+.player_1_score {
+    height: 50px;
+    width: 50px;
+    color: plum;
+    position: fixed;
+    left: 30vw;
+    margin-top: 30px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.player_2_score {
+    height: 50px;
+    width: 50px;
+    color: plum;
+    position: fixed;
+    left: 70vw;
+    margin-top: 30px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.message {
+    position: fixed;
+    /* color: #48426d; */
+    height: 10vh;
+    width: 30vw;
+    color: #c9cbff;
+    left: 38vw;
+    margin: 30px auto auto auto;
+    font-family: 'Pixelify Sans', sans-serif;
+}
